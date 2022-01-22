@@ -1,21 +1,45 @@
 package kg.geektech.weatherapp.ui.weather;
 
+import static android.content.Context.ALARM_SERVICE;
+
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import kg.geektech.weatherapp.R;
 import kg.geektech.weatherapp.base.BaseFragment;
 import kg.geektech.weatherapp.common.Resource;
 import kg.geektech.weatherapp.data.models.MainResponse;
+import kg.geektech.weatherapp.data.models.Weather;
 import kg.geektech.weatherapp.databinding.FragmentWeatherAppBinding;
 
 public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> {
@@ -34,15 +58,15 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
         viewModel.weatherLiveData.observe(getViewLifecycleOwner(), new Observer<Resource<MainResponse>>() {
             @Override
             public void onChanged(Resource<MainResponse> resource) {
-                switch (resource.status){
-                    case SUCCESS:{
-                       setupUI(resource.data.getWeather());
+                switch (resource.status) {
+                    case SUCCESS: {
+                        setupUI(resource.data);
                         break;
                     }
-                    case ERROR:{
+                    case ERROR: {
                         break;
                     }
-                    case LOADING:{
+                    case LOADING: {
                         break;
                     }
                 }
@@ -53,6 +77,20 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
     @Override
     protected void setupListeners() {
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Calendar uh = Calendar.getInstance();
+        int timeOfDay = uh.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay >= 0 && timeOfDay < 12) {
+            binding.imageCity.setImageResource(R.drawable.city_night);
+        } else if (timeOfDay >= 12 && timeOfDay < 24) {
+            binding.imageCity.setImageResource(R.drawable.city_day);
+        }
     }
 
     @Override
@@ -66,8 +104,40 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
     protected void callRequests() {
         viewModel.getWeather();
     }
+
     public void setupUI(MainResponse weather) {
         this.weather = weather;
-        binding.testt.setText(weather.getName());
+        binding.textCity.setText(weather.getName());
+        binding.textHumidityCifry.setText(weather.getMain().getHumidity().toString() + "%");
+        Double temp = weather.getMain().getTemp();
+        Integer temp1 = temp.intValue();
+        binding.textTemp.setText(temp1.toString());
+        Double maxTemp = weather.getMain().getTempMax();
+        Integer maxTemp1 = maxTemp.intValue();
+        binding.maxTemp.setText(maxTemp1.toString() + "С↑");
+        Double minTemp = weather.getMain().getTempMin();
+        Integer minTemp1 = minTemp.intValue();
+        binding.minTemp.setText(minTemp1.toString() + "С↓");
+        binding.textPressureCifry.setText(weather.getMain().getPressure().toString() + "mBar");
+        Double windSpeed = weather.getWind().getSpeed();
+        Integer windSpeed1 = windSpeed.intValue();
+        binding.textWindCifry.setText(windSpeed1.toString() + " km/h");
+        String a = weather.getWeather().get(0).getIcon();
+        Glide.with(binding.imageWeather)
+                .load("http://openweathermap.org/img/wn/" + a + "@2x.png").into(binding.imageWeather);
+        binding.textSunriseCifry.setText(getDate(weather.getSys().getSunrise(), "hh:mm") + " AM");
+        binding.textSunsetCifry.setText(getDate(weather.getSys().getSunset(), "hh:mm") + " PM");
+        binding.textDaytimeCifry.setText(getDate(weather.getDt(), "hh:mm"));
+
+    }
+
+    public static String getDate(Integer milliSeconds, String dateFormat) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
     }
 }

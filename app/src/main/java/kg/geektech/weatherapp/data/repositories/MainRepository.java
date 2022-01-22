@@ -21,7 +21,7 @@ public class MainRepository {
 
         MutableLiveData<Resource<MainResponse>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        api.getWeather().enqueue(new Callback<MainResponse>() {
+        api.getWeather("Bishkek", "bff2008a7f2e0a8857d1b0fd6a47a5f9", "metric").enqueue(new Callback<MainResponse>() {
             @Override
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {

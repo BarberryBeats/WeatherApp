@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ramis/AndroidStudioProjects/WeatherApp2/app/src/main/res/drawable/rounded_corner.xml" value="0.2703125" />
         <entry key="..\:/Users/Ramis/AndroidStudioProjects/WeatherApp2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Ramis/AndroidStudioProjects/WeatherApp2/app/src/main/res/layout/fragment_weather_app.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Ramis/AndroidStudioProjects/WeatherApp2/app/src/main/res/layout/fragment_weather_app.xml" value="0.264" />
       </map>
     </option>
   </component>
