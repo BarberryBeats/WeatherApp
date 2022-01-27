@@ -306,6 +306,20 @@
             app:layout_constraintTop_toBottomOf="@id/textDaytimeCifry" />
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerWeatherNextDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_weather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="22dp"/>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -313,11 +327,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="Moscoww"
+        android:text="Moscow"
         android:textColor="@color/blue"
         app:layout_constraintBottom_toTopOf="@id/constraintlayout"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="12dp"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

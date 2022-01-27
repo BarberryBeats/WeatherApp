@@ -10,4 +10,9 @@
         android:name="kg.geektech.weatherapp.ui.weather.WeatherAppFragment"
         android:label="fragment_weather_app"
         tools:layout="@layout/fragment_weather_app" />
+    <fragment
+        android:id="@+id/weatherCityFragment"
+        android:name="kg.geektech.weatherapp.ui.weather.WeatherCityFragment"
+        android:label="fragment_weather_city"
+        tools:layout="@layout/fragment_weather_city" />
 </navigation>

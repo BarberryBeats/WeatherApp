@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+import kg.geektech.weatherapp.Prefs;
 import kg.geektech.weatherapp.R;
 import kg.geektech.weatherapp.base.BaseFragment;
 import kg.geektech.weatherapp.common.Resource;
@@ -42,10 +44,13 @@ import kg.geektech.weatherapp.data.models.MainResponse;
 import kg.geektech.weatherapp.data.models.Weather;
 import kg.geektech.weatherapp.databinding.FragmentWeatherAppBinding;
 
+@AndroidEntryPoint
 public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> {
 
     private WeatherViewModel viewModel;
     private MainResponse weather;
+    private WeatherAdapter adapter;
+
 
 
     @Override
@@ -61,6 +66,7 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
                 switch (resource.status) {
                     case SUCCESS: {
                         setupUI(resource.data);
+
                         break;
                     }
                     case ERROR: {
@@ -76,9 +82,20 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
 
     @Override
     protected void setupListeners() {
-
+        binding.textCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigateUp();
+                navController.navigate(R.id.weatherCityFragment);
+            }
+        });
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        adapter = new WeatherAdapter();
+    }
 
     @Override
     public void onResume() {
@@ -100,9 +117,16 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
 
     }
 
+    private String getCity(){
+        Prefs prefs = new Prefs(requireActivity());
+        String a = prefs.getCity();
+        Log.d("Ray", a);
+        return a;
+    }
+
     @Override
     protected void callRequests() {
-        viewModel.getWeather();
+        viewModel.getWeather(getCity());
     }
 
     public void setupUI(MainResponse weather) {
