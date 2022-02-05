@@ -21,7 +21,7 @@ public class RetrofitClient {
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
+            .client(client )
             .build();
 
     public WeatherAppApi provideApi() {return retrofit.create(WeatherAppApi.class); }

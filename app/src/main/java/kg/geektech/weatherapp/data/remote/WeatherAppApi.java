@@ -15,5 +15,12 @@ public interface WeatherAppApi {
             @Query("units") String units
     );
 
+    @GET("forecast")
+    Call<MainResponse> getWeather5Days(
+            @Query("q") String city,
+            @Query("appid") String appid,
+            @Query("units") String units
+    );
+
 
 }

@@ -24,10 +24,9 @@ public class WeatherViewModel extends ViewModel {
 
     public LiveData<Resource<MainResponse>> weatherLiveData;
 
-    public void getWeather(String city){
+    public void getWeather(String city) {
         weatherLiveData = repository.getWeather(city);
     }
-
 
 
 }

@@ -5,6 +5,8 @@ package kg.geektech.weatherapp.data.models.modelsday;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 
 public class MainResponse {
 
@@ -19,7 +21,7 @@ public class MainResponse {
     private Integer cnt;
     @SerializedName("list")
     @Expose
-    private java.util.List<List> list = null;
+    private List<WeatherList> list = null;
     @SerializedName("city")
     @Expose
     private City city;
@@ -48,11 +50,11 @@ public class MainResponse {
         this.cnt = cnt;
     }
 
-    public java.util.List<List> getList() {
+    public java.util.List<WeatherList> getList() {
         return list;
     }
 
-    public void setList(java.util.List<List> list) {
+    public void setList(java.util.List<WeatherList> list) {
         this.list = list;
     }
 

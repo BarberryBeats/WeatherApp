@@ -5,8 +5,10 @@ package kg.geektech.weatherapp.data.models.modelsday;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 
-public class List {
+
+public class WeatherList {
 
     @SerializedName("dt")
     @Expose
@@ -16,7 +18,7 @@ public class List {
     private Main main;
     @SerializedName("weather")
     @Expose
-    private java.util.List<Weather> weather = null;
+    private List<Weather> weather = null;
     @SerializedName("clouds")
     @Expose
     private Clouds clouds;

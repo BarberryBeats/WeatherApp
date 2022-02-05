@@ -3,7 +3,7 @@ package kg.geektech.weatherapp;
 import android.app.Application;
 
 import dagger.hilt.android.HiltAndroidApp;
-import kg.geektech.weatherapp.data.remote.RetrofitClient;
+
 import kg.geektech.weatherapp.data.remote.WeatherAppApi;
 import kg.geektech.weatherapp.data.repositories.MainRepository;
 

@@ -10,7 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
-import kg.geektech.weatherapp.data.remote.RetrofitClient;
+
 import kg.geektech.weatherapp.data.remote.WeatherAppApi;
 import kg.geektech.weatherapp.data.repositories.MainRepository;
 import okhttp3.OkHttpClient;

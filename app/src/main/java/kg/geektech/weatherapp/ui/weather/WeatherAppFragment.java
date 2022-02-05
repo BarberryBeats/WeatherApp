@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -78,6 +80,7 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
                 }
             }
         });
+
     }
 
     @Override
@@ -95,6 +98,7 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new WeatherAdapter();
+        binding.recyclerWeatherNextDays.setAdapter(adapter);
     }
 
     @Override
@@ -115,6 +119,11 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
         viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
 
+        /*LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView myList = (RecyclerView) binding.recyclerWeatherNextDays;
+        myList.setLayoutManager(layoutManager);*/
+
     }
 
     private String getCity(){
@@ -127,7 +136,10 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
     @Override
     protected void callRequests() {
         viewModel.getWeather(getCity());
+
+
     }
+
 
     public void setupUI(MainResponse weather) {
         this.weather = weather;
@@ -153,13 +165,14 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
         binding.textSunsetCifry.setText(getDate(weather.getSys().getSunset(), "hh:mm") + " PM");
         binding.textDaytimeCifry.setText(getDate(weather.getDt(), "hh:mm"));
 
+
+
+
     }
 
     public static String getDate(Integer milliSeconds, String dateFormat) {
 
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
