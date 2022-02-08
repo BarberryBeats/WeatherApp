@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import kg.geektech.weatherapp.App;
 import kg.geektech.weatherapp.Prefs;
 import kg.geektech.weatherapp.R;
 import kg.geektech.weatherapp.base.BaseFragment;
@@ -143,6 +144,7 @@ public class WeatherAppFragment extends BaseFragment<FragmentWeatherAppBinding> 
 
     public void setupUI(MainResponse weather) {
         this.weather = weather;
+
         binding.textCity.setText(weather.getName());
         binding.textHumidityCifry.setText(weather.getMain().getHumidity().toString() + "%");
         Double temp = weather.getMain().getTemp();

@@ -1,5 +1,7 @@
 package kg.geektech.weatherapp.di;
 
+import androidx.room.Database;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,7 @@ import dagger.hilt.components.SingletonComponent;
 
 import kg.geektech.weatherapp.data.remote.WeatherAppApi;
 import kg.geektech.weatherapp.data.repositories.MainRepository;
+import kg.geektech.weatherapp.data.room.WeatherDataBase;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,6 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public abstract class AppModule {
+
+
 
 
     @Provides
@@ -55,5 +60,7 @@ public abstract class AppModule {
     public static MainRepository provideMainRepository(WeatherAppApi api){
         return new MainRepository(api);
     }
+
+
 
 }
